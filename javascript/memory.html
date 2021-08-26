@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <style>
+      body {
+         background-color: darkgray;
+      }
+
+      #container {
+         display: flex;
+         flex-wrap: wrap;
+         flex-basis: 20%;
+         width: fit-content;
+         max-width: 810px;
+         gap: 15px;
+         margin: 0 auto;
+      }
+
+      #container div {
+         height: 150px;
+         width: 150px;
+         background-image: url(img/bal.png);
+         background-size: 100% 100%;
+         outline: 3px solid rgb(52, 52, 216);
+      }
+
+      h1 {
+         text-align: center;
+         margin-bottom: 40px;
+         color: rgb(255, 203, 5);
+         text-shadow: 1px 1px black;
+
+      }
+
+      #replay {
+         display: block;
+         order: 2000;
+         margin: 0 auto;
+         margin-top: 25px;
+         line-height: 3.5rem;
+         font-size: 2rem;
+         border: 2px solid rgb(52, 52, 216);
+         border-radius: 10px;
+         color: rgb(52, 52, 216);
+
+
+      }
+
+      #replay:hover {
+         background-color: rgb(255, 203, 5);
+         /* box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05),
+            inset 0 -15px 15px rgba(255, 255, 255, 0.05),
+            0 15px 15px rgba(0, 00, 0, 0.3),
+            inset 0 15px 15px rgba(0, 0, 0, 0.3); */
+         border: none;
+         box-shadow:
+            inset 0 0 0 2px rgb(52, 52, 216),
+            inset 0 0 0 4px yellow,
+            inset 0 0 0 6px rgb(52, 52, 216),
+            0 10px 15px rgba(0, 0, 0, 0.3),
+            10px 10px 15px rgba(0, 0, 0, 0.3);
+
+
+
+         color: rgb(52, 52, 216);
+      }
+   </style>
+</head>
+
+<body>
+   <h1 id="tekst"> Speel memory</h1>
+   <main id="container"></main>
+
+
+   <script>
+      var memoryArray = [];
+      var positionArray = [];
+      var aantal = 0;
+      startSpel();
+      var Allcards = document.getElementsByTagName("div");
+      var kaard1;
+      var kaard2;
+      var count = 0;
+      var titel = document.getElementById("tekst");
+
+      function creerSpel() {
+         var container = document.getElementById("container");
+         for (i = 0; i < aantal; i++) {
+
+            var ran = Math.floor(Math.random() * memoryArray.length);
+
+            for (var x = 0; x < 2; x++) {
+               let ranOrderMath = Math.floor(Math.random() * positionArray.length);
+               var ranOrder = positionArray[ranOrderMath];
+               let newElement = document.createElement("div");
+               newElement.setAttribute("class", memoryArray[ran]);
+               newElement.style.order = ranOrder;
+               container.appendChild(newElement);
+               positionArray = positionArray.filter(e => e !== ranOrder);
+            }
+            memoryArray = memoryArray.filter(e => e !== memoryArray[ran]);
+         }
+      }
+
+      function draaiOm(memoryDiv) {
+         var memory = memoryDiv;
+         memoryDiv.style.backgroundImage = `
+         url('img/${memory.className}.jpg')`;
+         if (kaard1 == undefined) {
+            kaard1 = memory;
+         } else {
+            kaard2 = memory;
+            setTimeout(checkCorrect, 200);
+         }
+
+
+      }
+
+      function checkCorrect() {
+
+         if (kaard1.className == kaard2.className && kaard1 != kaard2) {
+            titel.innerHTML = "Matched!";
+            count++;
+
+            if (count == aantal) {
+               titel.innerHTML = "alles gematched!";
+               count = 0;
+               var newElement = document.createElement("button");
+               var texElement = document.createTextNode("speel opnieuw");
+               newElement.appendChild(texElement);
+               newElement.setAttribute("id", "replay");
+               var body = document.getElementsByTagName("body");
+               body[0].appendChild(newElement);
+               var replay = document.getElementById("replay");
+               replay.addEventListener('click', startSpel);
+
+            }
+            kaard1 = undefined;
+            kaard2 = undefined;
+
+         } else {
+            titel.innerHTML = "matched niet!"
+            kaard1.style.backgroundImage = "url(img/bal.png)";
+            kaard2.style.backgroundImage = "url(img/bal.png)";
+            kaard1 = undefined;
+            kaard2 = undefined;
+         }
+
+      }
+
+      function startSpel() {
+         aantal = prompt("hoeveel paren? max 10");
+         var container = document.getElementById("container");
+         container.innerHTML = "";
+         var replay = document.getElementById("replay");
+         if (replay != null) {
+            replay.remove();
+         }
+
+         memoryArray = ["paar1", "paar2", "paar3", "paar4", "paar5", "paar6", "paar7", "paar8", "paar9", "paar10"];
+         positionArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+         creerSpel();
+         var Allcards = document.getElementsByTagName("div");
+         for (let i = 0; i < aantal * 2; i++) {
+            Allcards[i].addEventListener("click", function () {
+               draaiOm(Allcards[i])
+            });
+
+         }
+      }
+   </script>
+</body>
+
+</html>

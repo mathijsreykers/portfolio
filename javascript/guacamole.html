@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<style>
+   body {
+      background-color: rgb(228, 220, 220);
+   }
+
+   #guac {
+      order: 3;
+      background-image: url(img/guac.jpg);
+      background-size: cover;
+
+
+   }
+
+   .container {
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      width: 38vw;
+      gap: 15px;
+      position: relative;
+      justify-content: space-between;
+      align-items: stretch;
+   }
+
+   .container div {
+      flex-basis: 200px;
+      height: 200px;
+      background-color: cornflowerblue;
+   }
+
+   #bericht {
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      text-align: center;
+      top: 290px;
+      color: crimson;
+      font-size: 1.6rem;
+      font-weight: 700;
+   }
+
+   #tijd,
+   #score,
+   h1 {
+      text-align: center;
+      margin: 18px;
+   }
+</style>
+
+<body>
+   <h1>Guac A Mole</h1>
+   <p id="tijd">Press the guac to start time</p>
+   <p id="score">Je score is 0</p>
+   <div class="container">
+      <p id="bericht">random bericht</p>
+      <div class="order"></div>
+      <div class="order"></div>
+      <div class="order"></div>
+      <div class="order" id="guac"></div>
+      <div class="order"></div>
+      <div class="order"></div>
+      <div class="order"></div>
+      <div class="order"></div>
+      <div class="order"></div>
+   </div>
+
+   <script>
+      var seconds = 60;
+      var score = 0;
+      var guac = document.getElementById("guac");
+      var scoreP = document.getElementById("score");
+      guac.addEventListener("click", pressGuac);
+
+      function randomOrder() {
+         var orderDivs = document.getElementsByClassName("order");
+         for (i = 0; i < orderDivs.length; i++) {
+            var rndOrder = Math.floor(Math.random() * 9);
+            orderDivs[i].style.order = rndOrder;
+         }
+      }
+
+      function pressGuac() {
+         console.log(seconds);
+         if (seconds == 60) {
+            timer();
+         }
+         if (seconds != -1) {
+            score++;
+            randomOrder();
+            randomBericht();
+            scoreP.innerHTML = `Je score is ${score}`;
+         }
+
+      }
+      var tijdP = document.getElementById("tijd");
+
+
+      function timer() {
+
+         tijdP.innerHTML = `${seconds} seconden`;
+         seconds--;
+         if (seconds >= 0) {
+            setTimeout(function () {
+               timer()
+            }, 1000);
+
+         }
+      }
+      var bericht = document.getElementById("bericht");
+
+      function randomBericht() {
+         var randomMes = ["hmm food", "Yummy", "lets eat", "guack'ed a mole"];
+         rndBericht = randomMes[Math.floor(Math.random() * 4)];
+         bericht.innerHTML = rndBericht;
+
+      }
+   </script>
+</body>
+
+</html>

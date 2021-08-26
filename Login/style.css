@@ -1,0 +1,117 @@
+
+body{
+    display: flex;
+    justify-content: center;
+    height:100vh;
+    align-items: center;
+    flex-direction: column;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    align-items: center;
+    margin: 0 auto;
+    border: 2px solid greenyellow;
+    border-radius: 15px;overflow: hidden;
+    gap:30px;
+    position: relative;
+
+    min-height: 482px;
+}
+form{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+ h2{
+    background-color: greenyellow;
+    width:100%;
+    text-align: center;
+    line-height: 5rem;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 10px;
+
+
+
+
+}
+
+form input{
+    width: 92%;
+    margin-bottom: 45px;
+    line-height: 1.5rem;
+    margin-top: 5px;
+
+
+}
+#smaller{
+    padding-top : 10px;
+    min-height: 200px;
+    height:20%;
+}
+
+label{
+    align-self: flex-start;
+    margin-left: 4%;
+}
+
+.button{
+    width: 100px;
+    background-color: greenyellow;
+    border-radius: 10px;
+    border:none;
+    line-height: 3rem;
+    align-self: flex-start;
+    margin-left: 4%;
+
+}
+
+#right{
+    margin-right:4%;
+    text-align: center;
+    display: block;
+    position: relative;
+    justify-self: center;
+    text-decoration: none;
+    color: black;
+
+}
+
+
+#buttoncon{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a{
+
+    position: absolute;
+    right:10px;
+    color: red;
+    top:20%;
+}
+#dash{
+    top:24%;
+}
+#left{
+    align-items: flex-start;
+}
+
+p,img{
+    margin-left: 4%;
+}
+
+img{
+   height:50%;
+    margin-bottom: 10px;
+}
+
